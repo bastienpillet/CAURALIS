@@ -3,37 +3,168 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Saisie Opérateur</title>
+  <title>Nouvelle Idée</title>
   <style>
-    /* Design basique pour mobile */
-    body { font-family: sans-serif; padding: 20px; max-width: 500px; margin: auto; background-color: #f4f7f6; }
-    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px;}
-    input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    button { background-color: #0d6efd; color: white; padding: 15px; width: 100%; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+    /* Style général inspiré de l'interface AppSheet */
+    body { 
+      font-family: 'Roboto', Arial, sans-serif; 
+      padding: 20px; 
+      background-color: #ffffff; 
+      color: #3c4043; 
+    }
+    .form-container { 
+      max-width: 600px; 
+      margin: auto; 
+    }
+    .form-group { 
+      margin-bottom: 24px; 
+    }
+    label { 
+      display: block; 
+      font-size: 13px; 
+      color: #5f6368; 
+      margin-bottom: 8px; 
+    }
+    .required { 
+      color: #1a73e8; /* L'astérisque bleue typique d'AppSheet */
+      font-weight: bold; 
+      margin-left: 2px;
+    }
+    
+    /* Champs de saisie */
+    input[type="text"], input[type="date"], select, textarea {
+      width: 100%; 
+      padding: 14px; 
+      border: 1px solid #dadce0; 
+      border-radius: 4px; 
+      box-sizing: border-box; 
+      font-size: 16px; 
+      color: #202124;
+      background-color: #ffffff;
+    }
+    input:focus, select:focus, textarea:focus { 
+      outline: none; 
+      border-color: #1a73e8; 
+      box-shadow: 0 0 0 1px #1a73e8;
+    }
+    
+    /* Boutons de sélection pour le Statut (Enum) */
+    .status-group { 
+      display: flex; 
+      gap: 10px; 
+    }
+    .status-option { 
+      flex: 1; 
+    }
+    .status-option input[type="radio"] { 
+      display: none; 
+    }
+    .status-option label {
+      display: block; 
+      text-align: center; 
+      padding: 14px; 
+      border: 1px solid #dadce0; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 16px; 
+      background-color: #fafafa; 
+      margin: 0;
+      color: #5f6368;
+    }
+    /* Comportement au clic sur les boutons Statut */
+    .status-option input[type="radio"]:checked + label {
+      border-color: #1a73e8; 
+      background-color: #e8f0fe; 
+      color: #1a73e8; 
+    }
+
+    /* Bouton d'envoi */
+    .submit-btn { 
+      background-color: #1a73e8; 
+      color: white; 
+      border: none; 
+      padding: 14px 24px; 
+      border-radius: 4px; 
+      font-size: 16px; 
+      font-weight: bold;
+      cursor: pointer; 
+      width: 100%; 
+      margin-top: 10px;
+    }
+    .submit-btn:hover { 
+      background-color: #1557b0; 
+    }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>Nouvelle Remontée</h2>
+  <div class="form-container">
     
-    <!-- Remplacez le lien ci-dessous par votre URL Apps Script -->
+    <!-- Lien Webhook Make.com intégré -->
     <form action="https://hook.eu1.make.com/cdaq4ajrwpbc1j9qsd0amt4z1iwc1ml7" method="POST">
 
-      <label>Votre Nom :</label>
-      <input type="text" name="nom" required placeholder="Ex: Jean Dupont">
+      <div class="form-group">
+        <label>Date_Soumission</label>
+        <input type="date" id="date_input" name="Date_Soumission" required>
+      </div>
 
-      <label>Machine concernée :</label>
-      <input type="text" name="machine" required placeholder="Ex: Presse N°4">
+      <div class="form-group">
+        <label>Auteur</label>
+        <!-- Placeholder ajouté et type text pour accepter les prénoms sans erreur de validation -->
+        <input type="text" name="Auteur" placeholder="Saisissez votre prénom ou email" required>
+      </div>
 
-      <label>Description détaillée :</label>
-      <textarea name="description" rows="5" required placeholder="Décrivez le problème ou l'idée..."></textarea>
+      <div class="form-group">
+        <label>Categorie</label>
+        <select name="Categorie">
+          <option value="" disabled selected></option>
+          <option value="Sécurité">Sécurité</option>
+          <option value="Qualité">Qualité</option>
+          <option value="Productivité">Productivité</option>
+          <option value="Maintenance">Maintenance</option>
+        </select>
+      </div>
 
-      <button type="submit">Envoyer dans l'application</button>
+      <div class="form-group">
+        <label>Titre_Idee<span class="required">*</span></label>
+        <input type="text" name="Titre_Idee" required>
+      </div>
+
+      <div class="form-group">
+        <label>Description<span class="required">*</span></label>
+        <input type="text" name="Description" required>
+      </div>
+
+      <div class="form-group">
+        <label>Statut</label>
+        <div class="status-group">
+          <div class="status-option">
+            <input type="radio" id="statut_afaire" name="Statut" value="À faire" checked>
+            <label for="statut_afaire">À faire</label>
+          </div>
+          <div class="status-option">
+            <input type="radio" id="statut_realise" name="Statut" value="Réalisé">
+            <label for="statut_realise">Réalisé</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Enregistrer</button>
 
     </form>
   </div>
+
+  <script>
+    // Remplissage automatique de la date du jour
+    document.addEventListener("DOMContentLoaded", function() {
+      var dateInput = document.getElementById('date_input');
+      var today = new Date();
+      var yyyy = today.getFullYear();
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var dd = String(today.getDate()).padStart(2, '0');
+      dateInput.value = yyyy + '-' + mm + '-' + dd;
+    });
+  </script>
 
 </body>
 </html>
