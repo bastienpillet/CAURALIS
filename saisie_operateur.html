@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saisie Opérateur</title>
+  <style>
+    /* Design basique pour mobile */
+    body { font-family: sans-serif; padding: 20px; max-width: 500px; margin: auto; background-color: #f4f7f6; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px;}
+    input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { background-color: #0d6efd; color: white; padding: 15px; width: 100%; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Nouvelle Remontée</h2>
+    
+    <!-- Remplacez le lien ci-dessous par votre URL Apps Script -->
+    <form action="VOTRE_URL_APPS_SCRIPT_COPIEE_A_L_ETAPE_2" method="POST">
+
+      <label>Votre Nom :</label>
+      <input type="text" name="nom" required placeholder="Ex: Jean Dupont">
+
+      <label>Machine concernée :</label>
+      <input type="text" name="machine" required placeholder="Ex: Presse N°4">
+
+      <label>Description détaillée :</label>
+      <textarea name="description" rows="5" required placeholder="Décrivez le problème ou l'idée..."></textarea>
+
+      <button type="submit">Envoyer dans l'application</button>
+
+    </form>
+  </div>
+
+</body>
+</html>
